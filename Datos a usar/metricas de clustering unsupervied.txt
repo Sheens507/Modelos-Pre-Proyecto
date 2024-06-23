@@ -1,0 +1,103 @@
+En un modelo no supervisado como el clustering, no se tienen etiquetas verdaderas (`labels`) para evaluar directamente la calidad de los clusters, ya que el objetivo es descubrir estructuras ocultas en los datos sin referencia a etiquetas predefinidas. Por lo tanto, las métricas utilizadas deben evaluar la calidad del clustering basado solo en las asignaciones de clusters proporcionadas por el modelo (`km.labels_`) y los datos (`X`). Aquí describimos algunas métricas comunes y cómo se calculan en ausencia de etiquetas verdaderas:
+
+### Métricas Comunes para Modelos No Supervisados
+
+1. **Coeficiente de Silueta** (`Silhouette Coefficient`):
+
+   - **Descripción**: Evalúa la cohesión dentro de los clusters y la separación entre clusters. Combina la medida de proximidad de un punto a otros puntos en su mismo cluster y la proximidad a puntos en otros clusters.
+   - **Cálculo**: Se calcula utilizando únicamente los datos y las etiquetas de clusters generadas por el modelo.
+   - **Uso en el código**:
+     ```python
+     scores["Silhouette Coefficient"].append(
+         metrics.silhouette_score(X, km.labels_, sample_size=2000)
+     )
+     ```
+   - **Interpretación**: El valor del coeficiente varía de -1 a 1, donde 1 indica clusters bien definidos, 0 indica clusters solapados y negativos indican mala asignación de clusters.
+
+2. **Índice de Davies-Bouldin** (`Davies-Bouldin Index`):
+
+   - **Descripción**: Mide la compacidad de los clusters y la separación entre clusters. Los clusters compactos y bien separados tendrán un valor bajo.
+   - **Cálculo**: Basado en la distancia entre clusters y el tamaño de los clusters.
+   - **Uso**:
+     ```python
+     scores["Davies-Bouldin Index"].append(
+         metrics.davies_bouldin_score(X, km.labels_)
+     )
+     ```
+   - **Interpretación**: Valores más bajos indican mejor calidad del clustering.
+
+3. **Índice de Calinski-Harabasz** (`Calinski-Harabasz Index` o `Variance Ratio Criterion`):
+
+   - **Descripción**: Evalúa la dispersión de los clusters en comparación con la dispersión dentro de los clusters.
+   - **Cálculo**: Utiliza la relación entre la dispersión total entre clusters y la dispersión interna de clusters.
+   - **Uso**:
+     ```python
+     scores["Calinski-Harabasz Index"].append(
+         metrics.calinski_harabasz_score(X, km.labels_)
+     )
+     ```
+   - **Interpretación**: Valores más altos indican mejores formaciones de clusters.
+
+4. **Coeficiente de Separación/Compacidad** (`Separation/Compactness Ratio`):
+
+   - **Descripción**: Similar a otras métricas, mide cómo de separados están los clusters y cuán compactos son internamente.
+   - **Cálculo**: No está directamente implementado en `scikit-learn`, pero se puede calcular utilizando funciones personalizadas que evalúen la distancia media intra-cluster y la distancia media inter-cluster.
+   - **Uso**: Requiere implementación personalizada.
+
+5. **Entropía** (`Entropy`):
+
+   - **Descripción**: Mide la diversidad de las etiquetas asignadas en los clusters. Aunque más común en escenarios semi-supervisados, se puede adaptar para comparar la distribución de datos.
+   - **Cálculo**: Basado en la información contenida en las asignaciones de clusters.
+   - **Uso**: Requiere implementación personalizada.
+
+### Ejemplo en el Código
+
+Puedes modificar la función `fit_and_evaluate` para calcular y usar estas métricas cuando no se tienen etiquetas verdaderas. Aquí un ejemplo:
+
+```python
+def fit_and_evaluate_unsupervised(km, X, n_runs=5):
+    name = km.__class__.__name__
+    
+    train_times = []
+    scores = defaultdict(list)
+    for seed in range(n_runs):
+        km.set_params(random_state=seed)
+        t0 = time()
+        km.fit(X)
+        train_times.append(time() - t0)
+        
+        labels_pred = km.labels_
+        
+        scores["Silhouette Coefficient"].append(
+            metrics.silhouette_score(X, labels_pred, sample_size=2000)
+        )
+        scores["Davies-Bouldin Index"].append(
+            metrics.davies_bouldin_score(X, labels_pred)
+        )
+        scores["Calinski-Harabasz Index"].append(
+            metrics.calinski_harabasz_score(X, labels_pred)
+        )
+    
+    train_times = np.asarray(train_times)
+
+    print(f"clustering done in {train_times.mean():.2f} ± {train_times.std():.2f} s ")
+    evaluation = {
+        "estimator": name,
+        "train_time": train_times.mean(),
+    }
+    evaluation_std = {
+        "estimator": name,
+        "train_time": train_times.std(),
+    }
+    for score_name, score_values in scores.items():
+        mean_score, std_score = np.mean(score_values), np.std(score_values)
+        print(f"{score_name}: {mean_score:.3f} ± {std_score:.3f}")
+        evaluation[score_name] = mean_score
+        evaluation_std[score_name] = std_score
+    evaluations.append(evaluation)
+    evaluations_std.append(evaluation_std)
+```
+
+### Resumen
+
+En ausencia de etiquetas verdaderas, las métricas de evaluación del clustering se basan en las propiedades internas de los clusters, como la cohesión y separación. Algunas métricas clave incluyen el coeficiente de silueta, el índice de Davies-Bouldin, y el índice de Calinski-Harabasz. Estas métricas evalúan la calidad del clustering basándose únicamente en las asignaciones de clusters generadas por el modelo y los datos de entrada.
