@@ -6,6 +6,7 @@ import os
 from procesamiento import cargar_data, quitar_columnas, elegir_columna, limpiar_tokenizar, eliminar_vacios
 from analisisSentimiento import analizar_sentimiento, promediar_sentimiento
 from implementoLDA import lemmatize_text, creacion_LDA, mostrar_temas, predict_topic
+from guardar_archivos import pasar_json, guardar_csv
 
 # funcion que escribe un mensaje en el archivo logs.txt
 def logs(mensaje):
@@ -143,38 +144,12 @@ def inicio(data, columna, cluster=False):
     ruta_positiva = "datos_procesados_positivos.csv"
     ruta_neutral = "datos_procesados_neutrales.csv"
     ruta_negativa = "datos_procesados_negativos.csv"
-
-
-    def guardar_csv(df, nombre_archivo):
-        carpeta_csv = "archivos-csv"
-        ruta_csv = os.path.join(carpeta_csv, nombre_archivo)
-        
-        if not os.path.exists(carpeta_csv): # Si no existe la carpeta que la cree
-            os.makedirs(carpeta_csv)
-
-        return df.to_csv(ruta_csv, index=False)
     
     # Datos procesados en formato CSV
     guardar_csv(datos_final_pos, ruta_positiva) 
     guardar_csv(datos_final_neu, ruta_neutral)
     guardar_csv(datos_final_neg, ruta_negativa)
-
-    print("Datos procesados guardados en 'datos_procesados.csv'")
-
-    def pasar_json(ruta):
-        archivo_csv, extension = os.path.splitext(ruta)
-        nombre_archivo = f"{archivo_csv}.json" # Nombre igual que el csv
-        carpeta_json = "archivos-json"  # Carpeta para todos los archivos json
-        ruta_json = os.path.join(carpeta_json, nombre_archivo)
-
-        if not os.path.exists(carpeta_json):    # Si no existe la carpeta que la cree
-            os.makedirs(carpeta_json)
-
-        with open(nombre_archivo,"w") as archivo_json: # Crear archivo json
-            archivo_json.write("") # en blanco, se llenara despues
-        leer_csv = pd.read_csv(ruta, sep=",", header = 0)
-        return leer_csv.to_json(archivo_json, indent = 1, orient= 'records') # Cada row separada por un espacio
-
+    
     # Datos procesados en formato JSON
     pasar_json(ruta_positiva)
     pasar_json(ruta_neutral)
