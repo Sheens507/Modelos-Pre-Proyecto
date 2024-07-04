@@ -1,0 +1,50 @@
+2024-07-03 23:53:27 - Eliminar rows con min tokens
+2024-07-03 23:54:58 - Lematizacion
+2024-07-03 23:55:11 - Analisis de sentimiento
+2024-07-03 23:55:11 - Promedio de analisis de sentimiento
+2024-07-03 23:55:11 - Creacion de 3 DataFrames
+2024-07-04 00:00:15 - Eliminar rows con min tokens
+2024-07-04 00:02:07 - Lematizacion
+2024-07-04 00:02:20 - Analisis de sentimiento
+2024-07-04 00:02:21 - Promedio de analisis de sentimiento
+2024-07-04 00:02:21 - Creacion de 3 DataFrames
+2024-07-04 00:06:45 - Eliminar rows con min tokens
+2024-07-04 00:08:17 - Lematizacion
+2024-07-04 00:08:30 - Analisis de sentimiento
+2024-07-04 00:08:30 - Promedio de analisis de sentimiento
+2024-07-04 00:08:30 - Creacion de 3 DataFrames
+2024-07-04 00:10:24 - Eliminar rows con min tokens
+2024-07-04 00:11:55 - Lematizacion
+2024-07-04 00:12:09 - Analisis de sentimiento
+2024-07-04 00:12:09 - Promedio de analisis de sentimiento
+2024-07-04 00:12:09 - Creacion de 3 DataFrames
+2024-07-04 00:15:48 - Eliminar rows con min tokens
+2024-07-04 00:17:29 - Lematizacion
+2024-07-04 00:17:42 - Analisis de sentimiento
+2024-07-04 00:17:42 - Promedio de analisis de sentimiento
+2024-07-04 00:17:42 - Creacion de 3 DataFrames
+2024-07-04 00:22:58 - Eliminar rows con min tokens
+2024-07-04 00:26:08 - Lematizacion
+2024-07-04 00:26:31 - Analisis de sentimiento
+2024-07-04 00:26:31 - Promedio de analisis de sentimiento
+2024-07-04 00:26:31 - Creacion de 3 DataFrames
+2024-07-04 01:33:32 - Eliminar rows con min tokens
+2024-07-04 01:34:59 - Lematizacion
+2024-07-04 01:35:09 - Analisis de sentimiento
+2024-07-04 01:35:09 - Promedio de analisis de sentimiento
+2024-07-04 01:35:09 - Creacion de 3 DataFrames
+2024-07-04 02:47:26 - Eliminar rows con min tokens
+2024-07-04 02:48:59 - Lematizacion
+2024-07-04 02:49:13 - Analisis de sentimiento
+2024-07-04 02:49:13 - Promedio de analisis de sentimiento
+2024-07-04 02:49:13 - Creacion de 3 DataFrames
+2024-07-04 02:52:06 - Eliminar rows con min tokens
+2024-07-04 02:53:43 - Lematizacion
+2024-07-04 02:53:54 - Analisis de sentimiento
+2024-07-04 02:53:54 - Promedio de analisis de sentimiento
+2024-07-04 02:53:54 - Creacion de 3 DataFrames
+2024-07-04 02:55:53 - Eliminar rows con min tokens
+2024-07-04 02:57:20 - Lematizacion
+2024-07-04 02:57:32 - Analisis de sentimiento
+2024-07-04 02:57:32 - Promedio de analisis de sentimiento
+2024-07-04 02:57:32 - Creacion de 3 DataFrames

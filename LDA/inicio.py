@@ -135,15 +135,26 @@ def inicio(data, columna, cluster=False):
     datos_neu = datos_neu.dropna(subset=['TEXTO_TOKEN'])
     datos_neg = datos_neg.dropna(subset=['TEXTO_TOKEN'])
 
+    # datos_pos = df_positivos
+
     # cluster asignado a cada fila
+    print("-------------POSITIVOS----------------------")
+    print(len(datos_pos))
+    print("----------------------")
     datos_final_pos = predict_topic(datos_pos, diccionario_pos, lda_model_pos, temas_pos) # Positivos
+    print("-------------NEUTRALES----------------------")
+    print(len(datos_neu))
+    print("----------------------")
     datos_final_neu = predict_topic(datos_neu, diccionario_neu, lda_model_neu, temas_neu) # Neutrales
+    print("-------------NEGATIVOS----------------------")
+    print(len(datos_neg))
+    print("----------------------")
     datos_final_neg = predict_topic(datos_neg, diccionario_neg, lda_model_neg, temas_neg) # Negativos
 
     # guarda el DataFrame en un archivo CSV
-    ruta_positiva = "datos_procesados_positivos.csv"
-    ruta_neutral = "datos_procesados_neutrales.csv"
-    ruta_negativa = "datos_procesados_negativos.csv"
+    ruta_positiva = "datos_procesados_positivos_1.csv"
+    ruta_neutral = "datos_procesados_neutrales_1.csv"
+    ruta_negativa = "datos_procesados_negativos_1.csv"
     
     # Datos procesados en formato CSV
     guardar_csv(datos_final_pos, ruta_positiva) 

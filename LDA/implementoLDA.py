@@ -48,29 +48,64 @@ def mostrar_temas(lda_model):
             topic_to_top_word[idx] = top_word[1]
     return topic_to_top_word
 
+# def predict_topic(data, dictionary, lda_model, topic_to_top_word):
+#     data['SCORE'] = ""
+#     data['TOPIC'] = ""
+#     data['name_topic'] = ""
+#     for i in range(len(data)):
+#         num = data.index[i]
+#         unseen_document = data["LEMMA"][num]
+#         if isinstance(unseen_document, list):
+#             # Verificar si hay elementos no string y convertirlos
+#             unseen_document = [str(token) for token in unseen_document]
+#         else:
+#             unseen_document = [str(unseen_document)]
+#         bow_vector = dictionary.doc2bow(unseen_document)
+#         lda_scores = sorted(lda_model[bow_vector], key=lambda tup: -1 * tup[1])
+#         primary_topic = lda_scores[0][0] if lda_scores else None
+#         # print(f"Documento {num}")
+#         # print(f"Texto: {unseen_document}")
+#         # print(f"Puntuación y tema asignado: {lda_scores}")
+#         # print(f"Tema más representativo: {primary_topic}")
+#         # print("\n")
+#         data["TOPIC"][i] = primary_topic
+#         if primary_topic in topic_to_top_word:
+#             data["name_topic"][i] = topic_to_top_word[primary_topic]
+#         # como hago para que lda_scores[0][1] solo guarde 3 decimales?
+#         data["SCORE"][i] = f"{lda_scores[0][1]*100:.2f}%"
+#     return data
+
 def predict_topic(data, dictionary, lda_model, topic_to_top_word):
     data['SCORE'] = ""
     data['TOPIC'] = ""
     data['name_topic'] = ""
-    for i in range(len(data)):
-        num = data.index[i]
-        unseen_document = data["LEMMA"][num]
+
+    for i, row in data.iterrows():
+        unseen_document = row["LEMMA"]
         if isinstance(unseen_document, list):
-            # Verificar si hay elementos no string y convertirlos
             unseen_document = [str(token) for token in unseen_document]
         else:
             unseen_document = [str(unseen_document)]
+        
         bow_vector = dictionary.doc2bow(unseen_document)
         lda_scores = sorted(lda_model[bow_vector], key=lambda tup: -1 * tup[1])
         primary_topic = lda_scores[0][0] if lda_scores else None
-        # print(f"Documento {num}")
-        # print(f"Texto: {unseen_document}")
-        # print(f"Puntuación y tema asignado: {lda_scores}")
-        # print(f"Tema más representativo: {primary_topic}")
-        # print("\n")
-        data["TOPIC"][i] = primary_topic
+        
+        if i < 10:  # Mostrar solo para los primeros 10 documentos
+            print(f"Documento {i}")
+            print(f"Texto: {unseen_document}")
+            print(f"Puntuación y tema asignado: {lda_scores}")
+            print(f"Tema más representativo: {primary_topic}")
+            print("\n")
+        
+        data.loc[i, "TOPIC"] = primary_topic
+        
         if primary_topic in topic_to_top_word:
-            data["name_topic"][i] = topic_to_top_word[primary_topic]
-        # como hago para que lda_scores[0][1] solo guarde 3 decimales?
-        data["SCORE"][i] = f"{lda_scores[0][1]*100:.2f}%"
+            data.loc[i, "name_topic"] = topic_to_top_word[primary_topic]
+        
+        # Guardar el score con 3 decimales en formato de cadena
+        if lda_scores:
+            score_formatted = f"{lda_scores[0][1] * 100:.2f}%"
+        else:
+            score_formatted = ""
     return data

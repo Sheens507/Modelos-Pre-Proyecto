@@ -1,0 +1,27 @@
+2024-07-04 00:31:32 - Eliminar rows con min tokens
+2024-07-04 00:34:43 - Lematizacion
+2024-07-04 00:35:12 - Analisis de sentimiento
+2024-07-04 00:35:12 - Promedio de analisis de sentimiento
+2024-07-04 00:35:12 - Creacion de 3 DataFrames
+2024-07-04 00:36:38 - Eliminar rows con min tokens
+2024-07-04 00:39:55 - Lematizacion
+2024-07-04 00:40:44 - Analisis de sentimiento
+2024-07-04 00:40:44 - Promedio de analisis de sentimiento
+2024-07-04 00:40:44 - Creacion de 3 DataFrames
+2024-07-04 00:46:31 - Eliminar rows con min tokens
+2024-07-04 00:50:13 - Lematizacion
+2024-07-04 00:50:45 - Analisis de sentimiento
+2024-07-04 00:50:45 - Promedio de analisis de sentimiento
+2024-07-04 00:50:45 - Creacion de 3 DataFrames
+2024-07-04 01:12:29 - Eliminar rows con min tokens
+2024-07-04 01:14:37 - Lematizacion
+2024-07-04 01:14:53 - Analisis de sentimiento
+2024-07-04 01:14:53 - Promedio de analisis de sentimiento
+2024-07-04 01:14:53 - Creacion de 3 DataFrames
+2024-07-04 01:28:03 - read_excel() got an unexpected keyword argument 'sep'
+2024-07-04 01:28:30 - expected string or bytes-like object
+2024-07-04 01:30:34 - Eliminar rows con min tokens
+2024-07-04 01:32:16 - Lematizacion
+2024-07-04 01:32:31 - Analisis de sentimiento
+2024-07-04 01:32:31 - Promedio de analisis de sentimiento
+2024-07-04 01:32:31 - Creacion de 3 DataFrames
